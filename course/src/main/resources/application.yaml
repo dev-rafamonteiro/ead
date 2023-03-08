@@ -6,22 +6,30 @@ server:
 spring:
   application:
     name: ead-course-service
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      discovery:
+        serviceId: ead-config-server
   datasource:
-    url: jdbc:postgresql://localhost:5432/ead-course
+    url: jdbc:postgresql://localhost:5432/ead-course1
     username: postgres
     password: admin
-  jpa:
-    hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-      jdbc:
-        lob.non-contextual-creation: true
-    properties:
+    jpa:
       hibernate:
-        show_sql: true
-  output:
-    ansi:
-      enabled: Always
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob.non-contextual-creation: true
+      properties:
+        hibernate:
+          show_sql: true
+    output:
+      ansi:
+        enabled: Always
+    rabbitmq:
+      addresses: amqps://uauwnnee:MwT0zK028y8H5Wu4tOb2d50lrN7BWpJ1@shrimp.rmq.cloudamqp.com/uauwnnee
 
 
 logging:
@@ -35,10 +43,34 @@ ead:
   api:
     url:
       authuser: 'http://ead-authuser-service/ead-authuser'
+  broker:
+    exchange:
+      userEventExchange: ead.userevent
+      notificationCommandExchange: ead.notificationcommand
+    queue:
+      userEventQueue:
+        name: ead.userevent.ms.course
+    key:
+      notificationCommandKey: ms.notification
+
+
+
+client:
+  refreshscope:
+    name: Rafaela Monteiro
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: 'http://localhost:8731/eureka'
+      defaultZone: 'http://localhost:8761/eureka'
   instance:
     hostname: localhost
+

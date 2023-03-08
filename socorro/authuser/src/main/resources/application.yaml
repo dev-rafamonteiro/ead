@@ -1,0 +1,10 @@
+
+spring:
+  application:
+    name: ead-authuser-service
+  config:
+    import: 'configserver:'
+  cloud:
+    config:
+      discovery:
+        serviceId: ead-config-server
