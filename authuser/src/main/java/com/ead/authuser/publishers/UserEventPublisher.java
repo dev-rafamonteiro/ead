@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserEventPublisher {
+
     @Autowired
     RabbitTemplate rabbitTemplate;
 
     @Value(value = "${ead.broker.exchange.userEvent}")
     private String exchangeUserEvent;
 
-
     public void publishUserEvent(UserEventDto userEventDto, ActionType actionType) {
         userEventDto.setActionType(actionType.toString());
         rabbitTemplate.convertAndSend(exchangeUserEvent, "", userEventDto);
-
     }
+
 }

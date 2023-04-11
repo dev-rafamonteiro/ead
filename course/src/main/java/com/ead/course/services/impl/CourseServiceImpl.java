@@ -37,7 +37,7 @@ public class CourseServiceImpl implements CourseService {
     LessonRepository lessonRepository;
 
     @Autowired
-    UserRepository courseUserRepository;
+    UserRepository userRepository;
 
     @Autowired
     NotificationCommandPublisher notificationCommandPublisher;
@@ -45,19 +45,17 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     @Override
     public void delete(CourseModel courseModel) {
-        boolean deleteCourseUserInAuthUser = false;
         List<ModuleModel> moduleModelList = moduleRepository.findAllLModulesIntoCourse(courseModel.getCourseId());
-        if (!moduleModelList.isEmpty()) {
-            for (ModuleModel module : moduleModelList) {
+        if (!moduleModelList.isEmpty()){
+            for(ModuleModel module : moduleModelList){
                 List<LessonModel> lessonModelList = lessonRepository.findAllLessonsIntoModule(module.getModuleId());
-                if (!lessonModelList.isEmpty()) {
+                if (!lessonModelList.isEmpty()){
                     lessonRepository.deleteAll(lessonModelList);
                 }
             }
             moduleRepository.deleteAll(moduleModelList);
         }
         courseRepository.deleteCourseUserByCourse(courseModel.getCourseId());
-
         courseRepository.delete(courseModel);
     }
 
@@ -93,13 +91,14 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.saveCourseUser(course.getCourseId(), user.getUserId());
         try {
             var notificationCommandDto = new NotificationCommandDto();
-            notificationCommandDto.setTitle("Bem vindo ao curso: " + course.getName());
+            notificationCommandDto.setTitle("Bem-Vindo(a) ao Curso: " + course.getName());
             notificationCommandDto.setMessage(user.getFullName() + " a sua inscrição foi realizada com sucesso!");
             notificationCommandDto.setUserId(user.getUserId());
             notificationCommandPublisher.publishNotificationCommand(notificationCommandDto);
         } catch (Exception e) {
-            log.warn("Error sending notification");
+            log.warn("Error sending notification!");
         }
     }
+
 
 }

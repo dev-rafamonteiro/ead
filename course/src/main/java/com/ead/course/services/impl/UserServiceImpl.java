@@ -32,13 +32,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel save(UserModel userModel) {
         return userRepository.save(userModel);
-
     }
 
     @Transactional
     @Override
     public void delete(UUID userId) {
-        courseRepository.deleteCourseUserByCourse(userId);
+        courseRepository.deleteCourseUserByUser(userId);
         userRepository.deleteById(userId);
     }
 

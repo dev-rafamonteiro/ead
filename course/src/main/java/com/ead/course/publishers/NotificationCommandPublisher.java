@@ -18,7 +18,8 @@ public class NotificationCommandPublisher {
     @Value(value = "${ead.broker.key.notificationCommandKey}")
     private String notificationCommandKey;
 
-    public void publishNotificationCommand(NotificationCommandDto notificationCommandDto){
+    public void publishNotificationCommand(NotificationCommandDto notificationCommandDto) {
         rabbitTemplate.convertAndSend(notificationCommandExchange, notificationCommandKey, notificationCommandDto);
     }
+
 }

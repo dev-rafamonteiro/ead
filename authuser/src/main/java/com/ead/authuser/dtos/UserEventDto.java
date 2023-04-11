@@ -1,11 +1,13 @@
 package com.ead.authuser.dtos;
 
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 
 @Data
 public class UserEventDto {
+
     private UUID userId;
     private String username;
     private String email;
@@ -16,4 +18,6 @@ public class UserEventDto {
     private String cpf;
     private String imageUrl;
     private String actionType;
+
+
 }

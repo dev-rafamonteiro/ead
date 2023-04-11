@@ -21,10 +21,15 @@ spring:
           predicates:
             - Path=/ead-notification/**
 
+ead:
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead123sr'
+
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: 'http://localhost:8731/eureka'
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8731/eureka'
   instance:
     hostname: localhost

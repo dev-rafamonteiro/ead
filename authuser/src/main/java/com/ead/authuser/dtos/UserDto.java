@@ -4,7 +4,6 @@ import com.ead.authuser.validation.UsernameConstraint;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
-import org.apache.catalina.User;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
@@ -43,8 +42,6 @@ public class UserDto {
     @JsonView({UserView.PasswordPut.class})
     private String oldPassword;
 
-    @NotBlank(groups = {UserView.RegistrationPost.class, UserView.UserPut.class})
-    @Size(max = 150, groups = {UserView.RegistrationPost.class, UserView.UserPut.class})
     @JsonView({UserView.RegistrationPost.class, UserView.UserPut.class})
     private String fullName;
 

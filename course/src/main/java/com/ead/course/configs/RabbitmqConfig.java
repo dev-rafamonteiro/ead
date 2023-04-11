@@ -16,14 +16,14 @@ public class RabbitmqConfig {
     CachingConnectionFactory cachingConnectionFactory;
 
     @Bean
-    public RabbitTemplate rabbitTemplate(){
+    public RabbitTemplate rabbitTemplate() {
         RabbitTemplate template = new RabbitTemplate(cachingConnectionFactory);
-        template.setMessageConverter(messageConverter() );
+        template.setMessageConverter(messageConverter());
         return template;
     }
 
     @Bean
-    public Jackson2JsonMessageConverter messageConverter(){
+    public Jackson2JsonMessageConverter messageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return new Jackson2JsonMessageConverter(objectMapper);
