@@ -1,29 +1,6 @@
-server:
-  port: 8888
-
 spring:
+  profiles:
+    active: dev
   application:
     name: ead-config-server
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/dev-rafamonteiro/ead-config-server-repo
-          default-label: main
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: 'http://localhost:8761/eureka'
-  instance:
-    hostname: localhost
-
-
-logging:
-  level:
-    com:
-      netflix:
-        eureka: OFF
-        discovery: OFF
-
 
