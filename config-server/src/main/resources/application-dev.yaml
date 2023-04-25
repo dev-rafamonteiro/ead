@@ -14,7 +14,8 @@ eureka:
     serviceUrl:
       defaultZone: 'http://localhost:8761/eureka'
   instance:
-    hostname: localhost
+    hostname: ${APP_DOMAIN_NAME}
+    non-secure-port: 80
 
 
 logging:
